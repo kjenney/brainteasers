@@ -2,6 +2,8 @@
 
 A Python script to calculate Brain Teasers
 
+Limited to 5 clues
+
 Example:
 
 ```
@@ -15,8 +17,14 @@ Example:
 How to Run It with the Script:
 
 ```
-python tease.py --first_clue_digits 681 \
-               --first_clue_context_digits 1 \
-               --first_clue_context_boolean right \
-               --first_clue_context_place correct
+python tease.py first \
+  -number 681 \
+  -digits 1 \
+  -validate valid \
+  -placement correct \
+  second \
+  -number 614 \
+  -digits 1 \
+  -validate valid \
+  -placement incorrect
 ```
