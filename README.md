@@ -14,17 +14,19 @@ Example:
 380 1 digit is right in wrong place
 ```
 
-How to Run It with the Script:
+How to run it with the Script:
+
+Each clue is processed as a comma-separated-value string. The elements are:
+  - the number defined in the clue
+  - how many digits to compare
+  - whether the digits are valid or invalid
+  - whether the placement is correct, incorrect, or none
 
 ```
-python tease.py first \
-  -number 681 \
-  -digits 1 \
-  -validate valid \
-  -placement correct \
-  second \
-  -number 614 \
-  -digits 1 \
-  -validate valid \
-  -placement incorrect
+python tease.py \
+    --first 681,1,valid,correct \
+    --second 614,1,valid,incorrect \
+    --third 206,2,valid,incorrect \
+    --fourth 738,3,invalid,none \
+    --fifth 380,1,valid,incorrect
 ```
