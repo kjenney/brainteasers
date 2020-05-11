@@ -16,7 +16,7 @@ Example:
 
 How to run it with the Script:
 
-Each clue is processed as a comma-separated-value string. The elements are:
+Each clue is processed as a list. The elements are:
   - the number defined in the clue
   - how many digits to compare
   - whether the digits are valid or invalid
@@ -24,9 +24,15 @@ Each clue is processed as a comma-separated-value string. The elements are:
 
 ```
 python tease.py \
-    --first 681,1,valid,correct \
-    --second 614,1,valid,incorrect \
-    --third 206,2,valid,incorrect \
-    --fourth 738,3,invalid,none \
-    --fifth 380,1,valid,incorrect
+    -c 681 1 valid correct \
+    -c 614 1 valid incorrect \
+    -c 206 2 valid incorrect \
+    -c 738 3 invalid none \
+    -c 380 1 valid incorrect
 ```
+
+## Order of Operations
+
+1. Put clues into a list of lists
+2. Process each clue and return a set
+3. Compare the first set with the rest to get the answer
