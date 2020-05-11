@@ -34,5 +34,6 @@ python tease.py \
 ## Order of Operations
 
 1. Put clues into a list of lists
+      - Done by argparser
 2. Process each clue and return a set
 3. Compare the first set with the rest to get the answer

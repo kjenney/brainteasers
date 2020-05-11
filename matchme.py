@@ -1,38 +1,60 @@
 from pprint import pprint
 
-class MatchMe:
-    """Match a number against requirements"""
+class Archimedes:
+    """The amazing Archimedes. Solve any Brain Teaser instantly!"""
     def __init__(self, args):
         self.args = args
         self.solve()
 
-    # def extract_clues(self, clue):
-    #     clue = clue.split(',')
-    #     number = clue[0]
-    #     digits = clue[1]
-    #     validate = clue[2]
-    #     placement = clue[3]
-    #     return number, digits, validate, placement
-    #
     def solve(self):
         print('Solving for it')
-        print(self.args.clue[0])
-        #number, digits, validate, placement = self.extract_clues(self.first)
+        # 2. Process each clue and return a collection of sets
+        collection_of_sets = self.process_clues()
+        # 3. Compare the first set with the rest to get the answer
+        ranges_to_compare = collection_of_sets.copy()
+        ranges_to_compare.pop(0)
+        print(collection_of_sets[0].intersection(*ranges_to_compare))
+
+    def process_clues(self):
+        """Returns a collection of sets - one from each clue"""
+        collection_of_sets = []
+        for clue in self.args.clue:
+            collection_of_sets.append(self.process_clue(clue))
+        return collection_of_sets
+
+    def process_clue(self, clue):
+        number, digits, validate, placement = self.extract_clue(clue)
         # If the clue is asking for an exact match - return it
-        #if int(digits) == self.how_many_digits_in_number(number) and validate == 'valid':
-        #    print(number)
+        if int(digits) == self.how_many_digits_in_number(number) and validate == 'valid':
+            return number
         # Otherwise iterate over every possible number
-        #else:
-            #matches = self.match_clue(number, self.every_possible_match(number), validate, placement)
-            #pprint(matches)
-        #    example = self.test_this(number, self.every_possible_match(number), validate, placement)
-            #pprint(matches)
-    #
-    # def match_clue(self, number, rangeofnumbers, validate, placement):
-    #     matches = []
-    #     for i in rangeofnumbers:
-    #         matches.append(i)
-    #     return matches
+        else:
+            matches = self.match_clue(number, self.every_possible_match(number), validate, placement)
+            pprint(matches)
+            return matches
+
+    def extract_clue(self, clue):
+        number = clue[0]
+        digits = clue[1]
+        validate = clue[2]
+        placement = clue[3]
+        return number, digits, validate, placement
+
+    def match_clue(self, number, rangeofnumbers, validate, placement):
+        """Returns a set that is the range of numbers that solve for a clue"""
+        matches = {}
+        for i in rangeofnumbers:
+            matches.add(i)
+        return matches
+
+    def every_possible_match(self, number):
+        """Start with an array of every number between 0 and 999* (* depends on the number of digits)"""
+        every = []
+        min = 0
+        max = int('9' * self.how_many_digits_in_number(number)) + 1 #include last number
+        for i in range(0, max):
+            every.append(str(i).zfill(self.how_many_digits_in_number(number)))
+        return every
     #
     # def test_this(self, number, rangeofnumbers, validate, placement):
     #     matches = []
@@ -86,14 +108,6 @@ class MatchMe:
     # #     #else:
     # #     #    return False
     # #
-    # def every_possible_match(self, number):
-    #     """Start with an array of every number between 0 and 999* (* depends on the number of digits)"""
-    #     every = []
-    #     min = 0
-    #     max = int('9' * self.how_many_digits_in_number(number)) + 1 #include last number
-    #     for i in range(0, max):
-    #         every.append(str(i).zfill(self.how_many_digits_in_number(number)))
-    #     return every
     #
     # def another(self):
     #
